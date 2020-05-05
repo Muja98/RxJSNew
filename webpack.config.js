@@ -9,9 +9,23 @@ module.exports = {
   },
   module:{
       rules:[
-          {test: /\.js$/,
+          {
+           test: /\.js$/,
            exclude:/node_modules/,
-           use:'babel-loader'}
+           use:'babel-loader'},
+          {
+            test: /\.tsx?$/,
+            exclude:/node_modules/,
+            use:'ts-loader'
+          },
+          {
+            test: /\.css$/,
+            use: ['style-loader','css-loader']
+          },
+          {
+            test: /\.(png|svg|jpg|gif)$/,
+            use: 'file-loader'
+          }
       ]
   }
 };
