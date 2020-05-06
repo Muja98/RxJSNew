@@ -1,6 +1,19 @@
+body{
+    background-image: url("../resources/5.jpg");
+}
+
 #navigationBarContainer{
     width: 100%;
   
+}
+
+#contentContainer{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 body{
@@ -9,4 +22,42 @@ body{
     background-color: white;
     display: flex;
     flex-direction: column;
+}
+
+
+.taskItem
+{
+    width: 100%;
+    height: fit-content;
+    background-color: whitesmoke;
+    margin-top: 45px;
+    border-radius: 1%;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+}
+
+.leftDiv
+{
+    width: 60%;
+    height: 100%;
+}
+
+.rightDiv
+{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 70px;
+    padding-top: 80px;
+
+}
+
+.mainContainer
+{
+    width: 40%;
+    height: 100%;
 }

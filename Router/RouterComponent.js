@@ -8,7 +8,7 @@ export class RouterComponent{
         mainPage.MainContainer(parent)
     }
 
-    openTaskPage(){
+    openTaskPage(parent){
         var taskPage = new TaskPage();
         taskPage.TaskContainer(parent)
     }

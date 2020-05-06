@@ -3,6 +3,8 @@ import {RouterComponent} from '../../Router/RouterComponent';
 var router = new RouterComponent();
 var par = document.getElementById("contentContainer")
 export function CreateNavigationBar(parent){
+        
+       
         let menu = document.createElement("div");
         menu.className = "menuContainer"
         parent.appendChild(menu)
@@ -13,27 +15,31 @@ export function CreateNavigationBar(parent){
 
         let pic = document.createElement("img");
         pic.src = "./resources/logo.png";
+        pic.style.width="80%"
+        pic.style.cursor = "pointer"
         div.appendChild(pic);
 
 
        div = document.createElement("div");
-       div.innerHTML = "<h1>Home</h1>"
+       div.innerHTML = "<p>Home</p>"
        div.className = "menuItem";
        div.onclick=(ev)=>{
+            par.innerHTML = "";
             router.openMainPage(par);
        }
        menu.appendChild(div);
 
        div = document.createElement("div");
-       div.innerHTML = "<h1>Tasks</h1>"
+       div.innerHTML = "<p>Tasks</p>"
        div.className = "menuItem";
        div.onclick=(ev)=>{
+          par.innerHTML = "";
           router.openTaskPage(par);
      }
        menu.appendChild(div);
 
        div = document.createElement("div");
-       div.innerHTML = "<h1>My Tasks</h1>"
+       div.innerHTML = "<p>My Tasks</p>"
        div.className = "menuItem";
        menu.appendChild(div);
 

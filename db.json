@@ -1,0 +1,54 @@
+{
+    "Tasks":[
+        {
+            "id": 1,
+            "title": "Oranje",
+            "taskid": 7, 
+            "description":"Neophodno je izorati njivu da bi se pripremila za buduce oranje",
+            "completed":false,
+            "WorkerId": null,
+            "dateOpen": "20.5.2020",
+            "dateClosed": "24.5.2020"
+        },
+        {
+            "id": 2,
+            "title": "Kopanje",
+            "taskid": 6, 
+            "description":"Neophodnoje okopati njivu da ne bi korov rasla",
+            "completed":false,
+            "WorkerId": null,
+            "dateOpen": "20.5.2020",
+            "dateClosed": "24.5.2020"
+        },
+        {
+            "id": 3,
+            "title": "Cuvanje stoke",
+            "taskid": 3, 
+            "description":"Neophodnoje je cuvati ovce na placu",
+            "completed":false,
+            "WorkerId": null,
+            "dateOpen": "20.5.2020",
+            "dateClosed": "24.5.2020"
+        },
+        {
+            "id": 4,
+            "title": "Radnik",
+            "taskid": 1, 
+            "description":"Neophodan je radnik za rad na farmi",
+            "completed":false,
+            "WorkerId": null,
+            "dateOpen": "20.5.2020",
+            "dateClosed": "24.5.2020"
+        }
+    ],
+    "Worker":[
+        {
+            "id":1,
+            "name": "Stefan",
+            "surname": "Stamenkovic",
+            "JBMG": "11111",
+            "dateOfBirth":"10.5.1998",
+            "tasksId":[1]
+        }
+    ]
+}
