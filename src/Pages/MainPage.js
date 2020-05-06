@@ -9,9 +9,11 @@ export class MainPage{
         this.tasks = new TaskServices();
         this.mainContainer = null;
         this.rightMenuContent = null;
+        this.modal = null
     }   
 
     MainContainer(parent){
+
         let div = document.createElement("div");
         parent.appendChild(div);
         this.mainContainer = div;
@@ -34,7 +36,10 @@ export class MainPage{
     }
 
     createModal(parent){
-
+        let div = document.createElement("div");
+        div.className = "modal"
+        this.modal = div;
+        parent.appendChild(div)
     }
 
   
@@ -153,8 +158,61 @@ export class MainPage{
 
     ShowModal(el,parent)
     {
+        this.modal.innerHTML = ""
+        let div = document.createElement("div");
+        div.className = "modal-content"
+       
+        this.modal.appendChild(div);
+
+
+        let sp = document.createElement("span");
+        sp.className="close"
+        sp.innerHTML = "&times;"
+        sp.onclick =()=>{
+            this.modal.style.display = "none"
+        }
+        div.appendChild(sp);
+
+        let container = document.createElement("div");
+        div.appendChild(container)
+        container.className = "modalContainer"
+
+        let pom = document.createElement("h1");
+        pom.innerHTML = "<span style=\"color:yellowgreen\">Radi &nbsp;</span>u zdravoj sredini";
+        pom.style.fontStyle = "Arial, Helvetica"
+        pom.style.fontSize = "32px"
+        container.appendChild(pom);
+
+        pom = document.createElement("img");
+        pom.src = "./resources/decor.png";
+        pom.style.width="230px"
+        container.appendChild(pom);
+
+        pom = document.createElement("p");
+        pom.innerText = `Prijavljujem se za posao: ${el.title}`
+        pom.style.fontSize = "28px"
+        div.appendChild(pom);
+
+        let niz = ["Ime:", "Prezime:", "JMBG:","Datum rodjenja: ", "Broj Telefona:"]
+        let padd = ["145","105","120","27","50"]
+        niz.map((el,i)=>{
+            let pomdiv = document.createElement("div");
+            pomdiv.style.padding = "10px"
+            div.appendChild(pomdiv);
+            let lbl = document.createElement("lbl");
+            lbl.innerText = el;
+            lbl.style.fontSize = "24px"
+            pomdiv.appendChild(lbl)
+            let inp = document.createElement("input");
+            inp.style.height = "30px"
+            inp.style.marginLeft = padd[i]+"px"
+            pomdiv.appendChild(inp)
+
+        })
+
         
-      
+        
+        this.modal.style.display = "block"
     }
 
   

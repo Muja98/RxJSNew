@@ -18,7 +18,18 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 700px;
+    height: fit-content;
+
+  }
+
+  .modalContainer
+  {
+     height: fit-content;
+      width: 95%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
   }
   
   /* The Close Button */
