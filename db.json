@@ -8,7 +8,8 @@
             "completed":false,
             "WorkerId": null,
             "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020"
+            "dateClosed": "24.5.2020",
+            "phone": "064-555-333"
         },
         {
             "id": 2,
@@ -18,7 +19,8 @@
             "completed":false,
             "WorkerId": null,
             "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020"
+            "dateClosed": "24.5.2020",
+            "phone": "064-555-333"
         },
         {
             "id": 3,
@@ -28,7 +30,8 @@
             "completed":false,
             "WorkerId": null,
             "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020"
+            "dateClosed": "24.5.2020",
+            "phone": "064-555-333"
         },
         {
             "id": 4,
@@ -38,7 +41,19 @@
             "completed":false,
             "WorkerId": null,
             "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020"
+            "dateClosed": "24.5.2020",
+            "phone": "064-555-333"
+        },
+        {
+            "id": 5,
+            "title": "Radnik",
+            "taskid": 1, 
+            "description":"Neophodan je radnik za rad na farmi",
+            "completed":false,
+            "WorkerId": null,
+            "dateOpen": "20.5.2020",
+            "dateClosed": "24.5.2020",
+            "phone": "064-555-333"
         }
     ],
     "Worker":[
@@ -49,6 +64,36 @@
             "JBMG": "11111",
             "dateOfBirth":"10.5.1998",
             "tasksId":[1]
+        }
+    ],
+    "WorkType":[
+        {
+            "id":1,
+            "name":"Radnik"
+        },
+        {
+            "id":2,
+            "name":"Sadnja"
+        },
+        {
+            "id":3,
+            "name":"Čuvanje stoke"
+        },
+        {
+            "id":4,
+            "name":"Košenje"
+        },
+        {
+            "id":5,
+            "name":"Rad u plasteniku"
+        },
+        {
+            "id":6,
+            "name":"Okopavanje"
+        },
+        {
+            "id":7,
+            "name":"Mehanizacija"
         }
     ]
 }

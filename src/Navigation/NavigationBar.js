@@ -15,7 +15,7 @@ export function CreateNavigationBar(parent){
 
         let pic = document.createElement("img");
         pic.src = "./resources/logo.png";
-        pic.style.width="80%"
+        pic.style.width="78%"
         pic.style.cursor = "pointer"
         div.appendChild(pic);
 
