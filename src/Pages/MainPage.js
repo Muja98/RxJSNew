@@ -1,8 +1,9 @@
 import {RouterComponent} from '../../Router/RouterComponent'
 import {TaskServices} from '../../Services/taskService';
-import {Subscriber} from 'rxjs';
+import {fromEvent, interval} from 'rxjs';
 import {zip} from 'rxjs'
-import { isThrowStatement } from 'typescript';
+import { isThrowStatement, textChangeRangeIsUnchanged } from 'typescript';
+import { switchMap,filter, mergeMap, map, withLatestFrom } from 'rxjs/operators';
 export class MainPage{
     constructor(){
         this.router = new RouterComponent();
@@ -24,15 +25,77 @@ export class MainPage{
         this.mainContainer.appendChild(div);
         this.rightMenuContent = div;
 
+        //this.createSearchBar(div)
+
         this.tasks.getAllWorkTypes().subscribe(
             allTypes => this.createSearchByItem(allTypes)
         )
-        this.tasks.getAllTasks().subscribe(
-            allTasks => this.createTasks(allTasks,div)
-        )
 
+        this.createAllTask()
         this.createModal(parent);
+        
+       
+    }
 
+  
+    createSearchBar(parent)
+    {
+        let div = document.createElement("div");
+        parent.appendChild(div);
+        div.className = "topnav"
+
+        
+        let inp = document.createElement("input");
+        inp.type = "text";
+        inp.placeholder = "Traži...";
+        inp.id = "inputTask"
+        inp.style.height = "50px"
+        inp.style.width = "610px"
+        
+        div.append(inp);
+        let button = document.createElement("button");
+        button.type ="submit"
+        button.id = "searchButton"
+        button.style.height = "50px"
+        button.style.width = "80px"
+        button.innerHTML = "<i class=\"fa fa-search\"></i>"
+        div.appendChild(button)
+        this.searchTasks();
+    }
+
+    searchTasks()
+    {
+        const searchButton = document.getElementById("searchButton")
+        fromEvent(searchButton,"click").pipe(
+            withLatestFrom(
+                this.inputObservable()
+            )
+        ).subscribe(itemForSearch=>this.createAllTask(itemForSearch[1]))
+
+    }   
+
+    inputObservable(){
+        const inp = document.getElementById("inputTask")
+        return fromEvent(inp,"input")
+        .pipe(
+          map(input=>input.target.value));
+
+    }
+
+    createAllTask(itemForSearch){
+        if(itemForSearch===null || itemForSearch ===undefined)
+        {
+
+            this.tasks.getAllTasks().subscribe(
+                allTasks => this.createTasks(allTasks,this.rightMenuContent)
+            )
+        }
+        else
+        {
+            this.tasks.getAllTasksByName(itemForSearch).subscribe(
+                allTasks => this.createTasks(allTasks,this.rightMenuContent)
+            )
+        }
     }
 
     createModal(parent){
@@ -63,12 +126,15 @@ export class MainPage{
             div = document.createElement("div");
             div.className = "leftMenuContentItem"
             div.innerText = el.name
+            
             div.onclick =()=>{
                 this.getItemClicked(el.id)
             }
             div.style.cursor = "pointer"
             div.style.backgroundColor = "whitesmoke"
             searchByItems.appendChild(div)
+
+            
         })
 
     }
@@ -83,6 +149,8 @@ export class MainPage{
 
     createTasks(allTasks, parent)
     {
+        parent.innerHTML = ""
+        this.createSearchBar(parent);
         if(allTasks.length===0)
         {
             let taskItem = document.createElement("div");
@@ -98,7 +166,8 @@ export class MainPage{
         }
         allTasks.map((el)=>{
 
-
+            if(el.WorkerId === 0)
+            {
             let taskItem = document.createElement("div");
             taskItem.className = "taskItem";
             parent.appendChild(taskItem);
@@ -152,7 +221,7 @@ export class MainPage{
             pic.style.width = "100px";
             pic.style.height = "100px"
             rightDiv.appendChild(pic);
-            
+        }
         })
     }
 
@@ -188,17 +257,25 @@ export class MainPage{
         pom.style.width="230px"
         container.appendChild(pom);
 
+        let centarModal = document.createElement("div");
+        centarModal.className = "centarModalDiv"
+        div.appendChild(centarModal);
+
+        let leftCetnerModal = document.createElement("div");
+        leftCetnerModal.className = "leftCetnerModal";
+        centarModal.appendChild(leftCetnerModal);
+
         pom = document.createElement("p");
         pom.innerText = `Prijavljujem se za posao: ${el.title}`
         pom.style.fontSize = "28px"
-        div.appendChild(pom);
+        leftCetnerModal.appendChild(pom);
 
         let niz = ["Ime:", "Prezime:", "JMBG:","Datum rodjenja: ", "Broj Telefona:"]
         let padd = ["145","105","120","27","50"]
         niz.map((el,i)=>{
             let pomdiv = document.createElement("div");
             pomdiv.style.padding = "10px"
-            div.appendChild(pomdiv);
+            leftCetnerModal.appendChild(pomdiv);
             let lbl = document.createElement("lbl");
             lbl.innerText = el;
             lbl.style.fontSize = "24px"
@@ -210,14 +287,71 @@ export class MainPage{
 
         })
 
+
+        let rightCenterModal = document.createElement("div");
+        rightCenterModal.className = "rightCenterModal";
+        centarModal.appendChild(rightCenterModal);
+
+
+        let pic = document.createElement("img");
+        pic.src = `./resources/icons/${el.taskid}.png`;
+        pic.style.width = "100px";
+        pic.style.height = "100px"
+        pic.style.marginTop = "100px"
+        rightCenterModal.appendChild(pic);
+
+ 
         
-        
+        let button = document.createElement("button");
+        button.innerText = "Konkuriši";
+        button.style.color = "#fff";
+        button.style.height = "50px";
+        button.style.width = "200px"
+        button.style.backgroundColor = "#5cb85c";
+        button.style.borderColor = "#4cae4c"
+        button.style.fontWeight = "400";
+        button.style.fontSize = "18px";
+        button.style.border = "1px solid transparent"
+        button.style.marginTop = "80px"
+        button.style.cursor = "pointer"
+        button.onclick =(ev)=>{
+            this.handleKonkurisiClick(ev.currentTarget,el)
+        }
+        rightCenterModal.appendChild(button)
+
         this.modal.style.display = "block"
+    }
+
+    handleKonkurisiClick(button,el){
+        let parent = button.parentNode.parentNode.childNodes[0];
+        
+        let worker = {
+            name : parent.childNodes[1].childNodes[1].value,
+            surname : parent.childNodes[2].childNodes[1].value,
+            JBMG : parent.childNodes[3].childNodes[1].value,
+            dateOfBirth : parent.childNodes[4].childNodes[1].value,
+            phoneNumber : parent.childNodes[5].childNodes[1].value,
+            tasksId : el.id
+        }
+        
+        this.tasks.addWorker(worker,el);
+       
+        this.modal.style.display = "none";
+        this.rightMenuContent.innerHTML = "";
+        this.createAllTask();
     }
 
   
 
 }
+
+// "id":1,
+// "name": "Stefan",
+// "surname": "Stamenkovic",
+// "JBMG": "11111",
+// "dateOfBirth":"10.5.1998",
+// "phoneNumber":"0651324",
+// "tasksId":[1]
 
 //"id": 1,
 // "title": "Oranje",

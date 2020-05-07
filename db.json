@@ -1,99 +1,92 @@
 {
-    "Tasks":[
-        {
-            "id": 1,
-            "title": "Oranje",
-            "taskid": 7, 
-            "description":"Neophodno je izorati njivu da bi se pripremila za buduce oranje",
-            "completed":false,
-            "WorkerId": null,
-            "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020",
-            "phone": "064-555-333"
-        },
-        {
-            "id": 2,
-            "title": "Kopanje",
-            "taskid": 6, 
-            "description":"Neophodnoje okopati njivu da ne bi korov rasla",
-            "completed":false,
-            "WorkerId": null,
-            "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020",
-            "phone": "064-555-333"
-        },
-        {
-            "id": 3,
-            "title": "Cuvanje stoke",
-            "taskid": 3, 
-            "description":"Neophodnoje je cuvati ovce na placu",
-            "completed":false,
-            "WorkerId": null,
-            "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020",
-            "phone": "064-555-333"
-        },
-        {
-            "id": 4,
-            "title": "Radnik",
-            "taskid": 1, 
-            "description":"Neophodan je radnik za rad na farmi",
-            "completed":false,
-            "WorkerId": null,
-            "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020",
-            "phone": "064-555-333"
-        },
-        {
-            "id": 5,
-            "title": "Radnik",
-            "taskid": 1, 
-            "description":"Neophodan je radnik za rad na farmi",
-            "completed":false,
-            "WorkerId": null,
-            "dateOpen": "20.5.2020",
-            "dateClosed": "24.5.2020",
-            "phone": "064-555-333"
-        }
-    ],
-    "Worker":[
-        {
-            "id":1,
-            "name": "Stefan",
-            "surname": "Stamenkovic",
-            "JBMG": "11111",
-            "dateOfBirth":"10.5.1998",
-            "tasksId":[1]
-        }
-    ],
-    "WorkType":[
-        {
-            "id":1,
-            "name":"Radnik"
-        },
-        {
-            "id":2,
-            "name":"Sadnja"
-        },
-        {
-            "id":3,
-            "name":"Čuvanje stoke"
-        },
-        {
-            "id":4,
-            "name":"Košenje"
-        },
-        {
-            "id":5,
-            "name":"Rad u plasteniku"
-        },
-        {
-            "id":6,
-            "name":"Okopavanje"
-        },
-        {
-            "id":7,
-            "name":"Mehanizacija"
-        }
-    ]
+  "Tasks": [
+    {
+      "id": 1,
+      "title": "Oranje",
+      "taskid": 7,
+      "description": "Neophodno je izorati njivu da bi se pripremila za buduce oranje",
+      "completed": false,
+      "WorkerId": 0,
+      "dateOpen": "20.5.2020",
+      "dateClosed": "24.5.2020",
+      "phone": "064-555-333"
+    },
+    {
+      "id": 2,
+      "title": "Kopanje",
+      "taskid": 6,
+      "description": "Neophodnoje okopati njivu da ne bi korov rasla",
+      "WorkerId": 0,
+      "completed": false,
+      "dateOpen": "20.5.2020",
+      "dateClosed": "24.5.2020",
+      "phone": "064-555-333"
+    },
+    {
+      "id": 3,
+      "title": "Cuvanje stoke",
+      "taskid": 3,
+      "description": "Neophodnoje je cuvati ovce na placu",
+      "completed": false,
+      "WorkerId": 0,
+      "dateOpen": "20.5.2020",
+      "dateClosed": "24.5.2020",
+      "phone": "064-555-333"
+    },
+    {
+      "id": 4,
+      "title": "Radnik",
+      "taskid": 1,
+      "description": "Neophodan je radnik za rad na farmi",
+      "completed": false,
+      "WorkerId": 0,
+      "dateOpen": "20.5.2020",
+      "dateClosed": "24.5.2020",
+      "phone": "064-555-333"
+    },
+    {
+      "id": 5,
+      "title": "Radnik",
+      "taskid": 1,
+      "description": "Neophodan je radnik za rad na farmi",
+      "completed": false,
+      "WorkerId": 0,
+      "dateOpen": "20.5.2020",
+      "dateClosed": "24.5.2020",
+      "phone": "064-555-333"
+    }
+  ],
+  "Worker": [
+    {}
+  ],
+  "WorkType": [
+    {
+      "id": 1,
+      "name": "Radnik"
+    },
+    {
+      "id": 2,
+      "name": "Sadnja"
+    },
+    {
+      "id": 3,
+      "name": "Čuvanje stoke"
+    },
+    {
+      "id": 4,
+      "name": "Košenje"
+    },
+    {
+      "id": 5,
+      "name": "Rad u plasteniku"
+    },
+    {
+      "id": 6,
+      "name": "Okopavanje"
+    },
+    {
+      "id": 7,
+      "name": "Mehanizacija"
+    }
+  ]
 }

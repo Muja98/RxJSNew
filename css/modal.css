@@ -46,3 +46,26 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+  .centarModalDiv
+  {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
+  
+  .leftCetnerModal
+  {
+    height: 100%;
+    width: 60%;
+  }
+
+  .rightCenterModal
+  {
+    height: 343px;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
