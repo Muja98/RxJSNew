@@ -122,6 +122,30 @@ export class TaskServices{
         
       return data$;
     }
+    taskDone(el)
+    {
+        console.log(el);
+        const UpdateTask ={
+            method:"put",
+            body: JSON.stringify(el),
+            headers:{'Content-Type':'application/json'},
+        };
+        fetch(URL_TASK+"/"+el.id,UpdateTask)
+    }
+
+    getAllTaskByWorkerJMBG(jmbg)
+    {
+        const data$ = fromFetch(URL_TASK+`?WorkerJMBG=${jmbg}`).pipe(
+            switchMap(response =>{
+                if(response.ok)
+                {
+                    return response.json();
+                }
+            })
+        )
+        
+      return data$;
+    }
 
     removeTask(id)
     {

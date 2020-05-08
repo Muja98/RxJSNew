@@ -1,5 +1,6 @@
 import {RouterComponent} from '../../Router/RouterComponent'
 import {TaskServices} from '../../Services/taskService';
+import {WorkServices} from '../../Services/workServices';
 import {fromEvent, interval} from 'rxjs';
 import {zip} from 'rxjs'
 import { isThrowStatement, textChangeRangeIsUnchanged } from 'typescript';
@@ -8,6 +9,7 @@ export class MainPage{
     constructor(){
         this.router = new RouterComponent();
         this.tasks = new TaskServices();
+        this.workers = new WorkServices();
         this.mainContainer = null;
         this.rightMenuContent = null;
         this.modal = null
@@ -169,7 +171,7 @@ export class MainPage{
         }
         allTasks.map((el)=>{
 
-            if(el.WorkerId === 0)
+            if(el.WorkerJMBG === 0)
             {
             let taskItem = document.createElement("div");
             taskItem.className = "taskItem";
@@ -273,22 +275,20 @@ export class MainPage{
         pom.style.fontSize = "28px"
         leftCetnerModal.appendChild(pom);
 
-        let niz = ["Ime:", "Prezime:", "JMBG:","Datum rodjenja: ", "Broj Telefona:"]
-        let padd = ["145","105","120","27","50"]
-        niz.map((el,i)=>{
-            let pomdiv = document.createElement("div");
-            pomdiv.style.padding = "10px"
-            leftCetnerModal.appendChild(pomdiv);
-            let lbl = document.createElement("lbl");
-            lbl.innerText = el;
-            lbl.style.fontSize = "24px"
-            pomdiv.appendChild(lbl)
-            let inp = document.createElement("input");
-            inp.style.height = "30px"
-            inp.style.marginLeft = padd[i]+"px"
-            pomdiv.appendChild(inp)
 
-        })
+        let pomdiv = document.createElement("div");
+        pomdiv.style.padding = "10px"
+        leftCetnerModal.appendChild(pomdiv);
+        let lbl = document.createElement("lbl");
+        lbl.innerText = "JMBG";
+        lbl.style.fontSize = "24px"
+        pomdiv.appendChild(lbl)
+        let inp = document.createElement("input");
+        inp.style.height = "30px"
+        inp.style.marginLeft = "120px"
+        pomdiv.appendChild(inp)
+
+  
 
 
         let rightCenterModal = document.createElement("div");
@@ -300,7 +300,6 @@ export class MainPage{
         pic.src = `./resources/icons/${el.taskid}.png`;
         pic.style.width = "100px";
         pic.style.height = "100px"
-        pic.style.marginTop = "100px"
         rightCenterModal.appendChild(pic);
 
  
@@ -308,51 +307,49 @@ export class MainPage{
         let button = document.createElement("button");
         button.className = "btnSuccess"
         button.innerText = "Konkuriši";
-        button.style.marginTop = "80px"
+        button.style.marginTop = "50px"
+        button.style.marginLeft =  "170px"
 
         button.onclick =(ev)=>{
-            this.handleKonkurisiClick(ev.currentTarget,el)
+            this.handleKonkurisiClick(ev.currentTarget,el,parent)
         }
-        rightCenterModal.appendChild(button)
+        pomdiv.appendChild(button)
 
         this.modal.style.display = "block"
     }
 
-    handleKonkurisiClick(button,el){
-        let parent = button.parentNode.parentNode.childNodes[0];
+    handleKonkurisiClick(button,el,parent){
+        let jmbg = button.parentNode.parentNode.childNodes[1].childNodes[1].value;
+
+        this.workers.getWorker(jmbg).subscribe(
+            data => data.length === 0 ? alert("Ne postoji radnik sa tim JMBG-om") :  this.konkurisi(jmbg,el,parent)
+        )
         
-        let worker = {
-            name : parent.childNodes[1].childNodes[1].value,
-            surname : parent.childNodes[2].childNodes[1].value,
-            JBMG : parent.childNodes[3].childNodes[1].value,
-            dateOfBirth : parent.childNodes[4].childNodes[1].value,
-            phoneNumber : parent.childNodes[5].childNodes[1].value,
-            tasksId : el.id
+        button.parentNode.parentNode.childNodes[1].childNodes[1].value = "";
+    }
+
+    konkurisi(jmbg,el,parent)
+    {
+        let Task = {
+            id:  el.id,
+            jmbg: el.jmbg,
+            title:  el.title,
+            taskid:  el.taskid,
+            description:  el.description,
+            completed:  el.completed,
+            WorkerJMBG: jmbg,
+            dateOpen: el.dateOpen,
+            dateClosed: el.dateClosed,
+            phone: el.phone
         }
-        
-        this.tasks.addWorker(worker,el);
-       
+        this.tasks.taskDone(Task);
         this.modal.style.display = "none";
-        this.rightMenuContent.innerHTML = "";
-        this.createAllTask();
+        parent.innerHTML = "";
+        //setTimeout((   this.createAllTask()),5500)
+        setTimeout(()=>{this.createAllTask()}, 500);
     }
 
   
 
 }
 
-// "id":1,
-// "name": "Stefan",
-// "surname": "Stamenkovic",
-// "JBMG": "11111",
-// "dateOfBirth":"10.5.1998",
-// "phoneNumber":"0651324",
-// "tasksId":[1]
-
-//"id": 1,
-// "title": "Oranje",
-// "description": "Neophodno je izorati njivu da bi se pripremila za buduce oranje",
-// "completed": false,
-// "WorkerId": null,
-// "dateOpen": "20.5.2020",
-// "dateClosed": "24.5.2020"

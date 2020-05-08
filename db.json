@@ -1,44 +1,58 @@
 {
   "Tasks": [
     {
-      "id": 3,
-      "jmbg": "22222",
-      "title": "Cuvanje stoke",
-      "taskid": 3,
-      "description": "Neophodnoje je cuvati ovce na placu",
-      "completed": false,
-      "WorkerId": 0,
-      "dateOpen": "20.5.2020",
-      "dateClosed": "24.5.2020",
-      "phone": "064-555-333"
-    },
-    {
+      "id": 9,
       "jmbg": "11111",
       "title": "Radnik ",
       "taskid": "5",
       "description": "sadasdasd",
       "completed": false,
-      "WorkerId": 0,
+      "WorkerJMBG": 0,
       "dateOpen": "10,4,2020",
       "dateClosed": "10.6.2021",
-      "phone": "065",
-      "id": 9
+      "phone": "065"
     },
     {
+      "id": 10,
       "jmbg": "11111",
       "title": "Vrsa",
       "taskid": "7",
       "description": "Potreban vozac kombajna someke M84",
       "completed": false,
-      "WorkerId": 0,
+      "WorkerJMBG": 0,
       "dateOpen": "1.6.2020",
       "dateClosed": "1.7.2020",
-      "phone": "064-88-75-504",
-      "id": 10
+      "phone": "064-88-75-504"
     }
   ],
   "Worker": [
-    {}
+    {
+      "id": 1,
+      "name": "Stefan",
+      "surname": "Stamenkovic",
+      "phone": "064-88-75-504",
+      "dateOfBirth": "10.05.1998",
+      "JMBG": "1005",
+      "taskID": null
+    },
+    {
+      "name": "a",
+      "surname": "a",
+      "phone": "a",
+      "dateOfBirth": "a",
+      "JMBG": "a",
+      "taskID": null,
+      "id": 2
+    },
+    {
+      "name": "Mika",
+      "surname": "Mikic",
+      "phone": "31",
+      "dateOfBirth": "4.1.2000",
+      "JMBG": "1000",
+      "taskID": null,
+      "id": 3
+    }
   ],
   "WorkType": [
     {

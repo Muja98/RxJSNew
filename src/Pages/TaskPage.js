@@ -145,7 +145,7 @@ export class TaskPage{
                       taskid: parent.childNodes[6].childNodes[1].value,
                       description: parent.childNodes[5].childNodes[1].value,
                       completed: false,                     
-                      WorkerId: 0,                   
+                      WorkerJMBG: 0,                   
                       dateOpen: parent.childNodes[3].childNodes[1].value,
                       dateClosed: parent.childNodes[4].childNodes[1].value,
                       phone: parent.childNodes[2].childNodes[1].value  
@@ -253,7 +253,7 @@ export class TaskPage{
 
         let taskItem = document.createElement("div");
         taskItem.className = "taskItemError";
-        taskItem.innerText = "Ne završeni"
+        taskItem.innerText = "Nezavršeni"
         taskItem.style.marginLeft = "50px"
         taskItem.style.color = "#dc3545"
         left.appendChild(taskItem);

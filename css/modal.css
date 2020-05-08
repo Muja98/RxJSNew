@@ -19,13 +19,13 @@
     padding: 20px;
     border: 1px solid #888;
     width: 700px;
-    height: fit-content;
+    height: 380px;
 
   }
 
   .modalContainer
   {
-     height: fit-content;
+     height: 100px;
       width: 95%;
       display: flex;
       align-items: center;

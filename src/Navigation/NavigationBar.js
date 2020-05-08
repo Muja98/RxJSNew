@@ -41,6 +41,10 @@ export function CreateNavigationBar(parent){
        div = document.createElement("div");
        div.innerHTML = "<p>My Tasks</p>"
        div.className = "menuItem";
+       div.onclick=(ev)=>{
+          par.innerHTML = "";
+          router.openMyTaskPage(par);
+       }
        menu.appendChild(div);
 
 
