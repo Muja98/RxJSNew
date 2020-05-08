@@ -1,29 +1,8 @@
 {
   "Tasks": [
     {
-      "id": 1,
-      "title": "Oranje",
-      "taskid": 7,
-      "description": "Neophodno je izorati njivu da bi se pripremila za buduce oranje",
-      "completed": false,
-      "WorkerId": 0,
-      "dateOpen": "20.5.2020",
-      "dateClosed": "24.5.2020",
-      "phone": "064-555-333"
-    },
-    {
-      "id": 2,
-      "title": "Kopanje",
-      "taskid": 6,
-      "description": "Neophodnoje okopati njivu da ne bi korov rasla",
-      "WorkerId": 0,
-      "completed": false,
-      "dateOpen": "20.5.2020",
-      "dateClosed": "24.5.2020",
-      "phone": "064-555-333"
-    },
-    {
       "id": 3,
+      "jmbg": "22222",
       "title": "Cuvanje stoke",
       "taskid": 3,
       "description": "Neophodnoje je cuvati ovce na placu",
@@ -34,26 +13,28 @@
       "phone": "064-555-333"
     },
     {
-      "id": 4,
-      "title": "Radnik",
-      "taskid": 1,
-      "description": "Neophodan je radnik za rad na farmi",
+      "jmbg": "11111",
+      "title": "Radnik ",
+      "taskid": "5",
+      "description": "sadasdasd",
       "completed": false,
       "WorkerId": 0,
-      "dateOpen": "20.5.2020",
-      "dateClosed": "24.5.2020",
-      "phone": "064-555-333"
+      "dateOpen": "10,4,2020",
+      "dateClosed": "10.6.2021",
+      "phone": "065",
+      "id": 9
     },
     {
-      "id": 5,
-      "title": "Radnik",
-      "taskid": 1,
-      "description": "Neophodan je radnik za rad na farmi",
+      "jmbg": "11111",
+      "title": "Vrsa",
+      "taskid": "7",
+      "description": "Potreban vozac kombajna someke M84",
       "completed": false,
       "WorkerId": 0,
-      "dateOpen": "20.5.2020",
-      "dateClosed": "24.5.2020",
-      "phone": "064-555-333"
+      "dateOpen": "1.6.2020",
+      "dateClosed": "1.7.2020",
+      "phone": "064-88-75-504",
+      "id": 10
     }
   ],
   "Worker": [

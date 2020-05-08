@@ -1,7 +1,7 @@
 import {from} from 'rxjs';
 import {Observable} from 'rxjs';
 import {fromFetch} from 'rxjs/fetch'
-import {switchMap} from 'rxjs/operators'
+import {switchMap, take} from 'rxjs/operators'
 
 
 let URL_TASK = "http://localhost:3000/Tasks"
@@ -18,7 +18,7 @@ export class TaskServices{
                 {
                     return response.json();
                 }
-            })
+            }),
         )
         
       return data$;
@@ -37,6 +37,8 @@ export class TaskServices{
       return data$;
     }
     //http://localhost:3000/Tasks?taskid=1
+    //Merge map
+    //Salje podatke i ako hocemo nove ona prekida predhodno slanje
     getAllTaskById(id)
     {
         const data$ = fromFetch(URL_TASK+`?taskid=${id}`).pipe(
@@ -87,6 +89,51 @@ export class TaskServices{
             headers:{'Content-Type':'application/json'},
         };
         fetch(URL_TASK+"/"+task.id,UpdateTask)
+    }
+
+    addTask(task){
+
+        const newTask ={
+            method:"post",
+            body: JSON.stringify(task),
+            headers:{'Content-Type':'application/json'}
+        };
+        fetch(URL_TASK,newTask)
+        .then(response => response.json())
+        .then(data => {
+          alert(`Uspešno dodan Task!`)
+        })
+        .catch((error) => {
+          alert("Trenutno nije moguće dodati novi task!")
+        });
+
+    }
+
+    getAllTaskByJMBG(jmbg)
+    {
+        const data$ = fromFetch(URL_TASK+`?jmbg=${jmbg}`).pipe(
+            switchMap(response =>{
+                if(response.ok)
+                {
+                    return response.json();
+                }
+            })
+        )
+        
+      return data$;
+    }
+
+    removeTask(id)
+    {
+
+        fetch(URL_TASK+`/${id}`,{method: 'DELETE'})
+        .then(response => response.json())
+        .then(data => {
+          return true
+        })
+        .catch((error) => {
+          return false;
+        });
     }
 
    

@@ -1,0 +1,104 @@
+.btnSuccess
+{
+    color:  #fff;
+    height: 50px;
+    width: 200px;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    font-weight: 400;
+    font-size: 18;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+
+
+.taskContainer
+{
+    width: 100%;
+    height: 800px;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.TaskContainerLeft
+{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TaskContainerLeftContainer
+{
+    height: 700px;
+    width: 500px;
+    background-color: whitesmoke;
+    opacity: 0.95;
+}
+
+.TaskContainerLeftContainerTop
+{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.TaskContainerLeftContainerBottom
+{
+    height: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.TaskContainerLeftContainerBottomEllement
+{
+    height: 50px;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.TaskContainerRight
+{
+    width: 70%;
+    height: 100%;
+
+}
+
+.TaskContainerRightTop
+{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.TaskContainerRightBottom
+{
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.TaskContainerRightBottomLeft
+{
+    height: 100%;
+    width: 50%;
+}
+
+.TaskContainerRightBottomRight
+{
+    height: 100%;
+    width: 50%;
+}
+

@@ -3,7 +3,7 @@ import {TaskServices} from '../../Services/taskService';
 import {fromEvent, interval} from 'rxjs';
 import {zip} from 'rxjs'
 import { isThrowStatement, textChangeRangeIsUnchanged } from 'typescript';
-import { switchMap,filter, mergeMap, map, withLatestFrom } from 'rxjs/operators';
+import { switchMap,filter, mergeMap, map, withLatestFrom, take } from 'rxjs/operators';
 export class MainPage{
     constructor(){
         this.router = new RouterComponent();
@@ -117,6 +117,7 @@ export class MainPage{
         div.style.backgroundColor = "#c3e6cb"
         div.style.borderRadius = "3%"
         div.style.color = "#155724"
+        div.style.fontFamily = "Arial, Helvetica"
         div.innerText = "Tip posla",
         div.style.fontWeight = "600"
         div.style.fontSize = "24px"
@@ -126,6 +127,8 @@ export class MainPage{
             div = document.createElement("div");
             div.className = "leftMenuContentItem"
             div.innerText = el.name
+            div.style.fontFamily = "Arial, Helvetica"
+            div.style.fontWeight = "500"
             
             div.onclick =()=>{
                 this.getItemClicked(el.id)
@@ -303,17 +306,10 @@ export class MainPage{
  
         
         let button = document.createElement("button");
+        button.className = "btnSuccess"
         button.innerText = "Konkuriši";
-        button.style.color = "#fff";
-        button.style.height = "50px";
-        button.style.width = "200px"
-        button.style.backgroundColor = "#5cb85c";
-        button.style.borderColor = "#4cae4c"
-        button.style.fontWeight = "400";
-        button.style.fontSize = "18px";
-        button.style.border = "1px solid transparent"
         button.style.marginTop = "80px"
-        button.style.cursor = "pointer"
+
         button.onclick =(ev)=>{
             this.handleKonkurisiClick(ev.currentTarget,el)
         }
