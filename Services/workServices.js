@@ -40,6 +40,15 @@ export class WorkServices{
       
     return data$;
   }
+
+  
+      async  getWorkerByPromises(JMBG) {
+      return fetch(URL_WORKER+`?JMBG=${JMBG}`)
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+    }
+  
+
   
 
 }

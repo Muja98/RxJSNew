@@ -1,28 +1,40 @@
 {
   "Tasks": [
     {
-      "id": 9,
-      "jmbg": "11111",
-      "title": "Radnik ",
-      "taskid": "5",
-      "description": "sadasdasd",
-      "completed": false,
-      "WorkerJMBG": 0,
-      "dateOpen": "10,4,2020",
-      "dateClosed": "10.6.2021",
-      "phone": "065"
-    },
-    {
       "id": 10,
       "jmbg": "11111",
       "title": "Vrsa",
       "taskid": "7",
       "description": "Potreban vozac kombajna someke M84",
       "completed": false,
-      "WorkerJMBG": 0,
+      "WorkerJMBG": "1005",
       "dateOpen": "1.6.2020",
       "dateClosed": "1.7.2020",
       "phone": "064-88-75-504"
+    },
+    {
+      "id": 11,
+      "jmbg": "10051998",
+      "title": "Oranje",
+      "taskid": "7",
+      "description": "Potrebno je izorati njivu da bi se pripremila za proletnju setvu",
+      "completed": false,
+      "WorkerJMBG": 0,
+      "dateOpen": "1,9.2020",
+      "dateClosed": "1.10.2020",
+      "phone": "018-610-140"
+    },
+    {
+      "jmbg": "10053",
+      "title": "Čoban",
+      "taskid": "3",
+      "description": "Potreban čoban za čuvanje ovaca na planini,smeštaj i hrana obezbeđeni",
+      "completed": false,
+      "WorkerJMBG": 0,
+      "dateOpen": "10.4.2020",
+      "dateClosed": "10.6.2020",
+      "phone": "064-233-1233",
+      "id": 12
     }
   ],
   "Worker": [

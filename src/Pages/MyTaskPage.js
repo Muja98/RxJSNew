@@ -86,7 +86,6 @@ export class MyTask{
             let taskItem = document.createElement("div");
             taskItem.className = "taskItemError";
             taskItem.style.width = "600px"
-            taskItem.style.marginLeft = "350px"
             taskItem.innerText = "Ne postoje rezultati za taj JMBG!"
             left.appendChild(taskItem);
             return;

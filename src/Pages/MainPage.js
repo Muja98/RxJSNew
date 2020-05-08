@@ -321,10 +321,10 @@ export class MainPage{
     handleKonkurisiClick(button,el,parent){
         let jmbg = button.parentNode.parentNode.childNodes[1].childNodes[1].value;
 
-        this.workers.getWorker(jmbg).subscribe(
-            data => data.length === 0 ? alert("Ne postoji radnik sa tim JMBG-om") :  this.konkurisi(jmbg,el,parent)
+        this.workers.getWorkerByPromises(jmbg).then(data=>
+            data.length === 0 ? alert("Ne postoji radnik sa tim JMBG-om") :  this.konkurisi(jmbg,el,parent)
         )
-        
+       
         button.parentNode.parentNode.childNodes[1].childNodes[1].value = "";
     }
 
