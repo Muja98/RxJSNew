@@ -6,6 +6,13 @@ import {zip} from 'rxjs'
 import { isThrowStatement, textChangeRangeIsUnchanged } from 'typescript';
 import { switchMap,filter, mergeMap, map, withLatestFrom, take, takeUntil } from 'rxjs/operators';
 export class MainPage{
+    router: RouterComponent;
+    tasks: TaskServices;
+    workers: WorkServices;
+    mainContainer: HTMLDivElement;
+    rightMenuContent: HTMLDivElement;
+    modal: HTMLDivElement;
+    arrayOfTypes: Array<Object>
     constructor(){
         this.router = new RouterComponent();
         this.tasks = new TaskServices();
@@ -34,7 +41,7 @@ export class MainPage{
             allTypes => this.createSearchByItem(allTypes)
         )
 
-        this.createAllTask()
+        this.createAllTask(null)
         this.createModal(parent);
         
        
@@ -81,7 +88,7 @@ export class MainPage{
         const inp = document.getElementById("inputTask")
         return fromEvent(inp,"input")
         .pipe(
-          map(input=>input.target.value));
+          map(input=> (<HTMLTextAreaElement>input.target).value));
 
     }
 
@@ -189,7 +196,7 @@ export class MainPage{
         allTasks.map((el)=>{
             this.arrayOfTypes.push(el);
         })
-
+        console.log(this.arrayOfTypes)
         let length = this.arrayOfTypes.length;
         let i =0;
 
@@ -235,9 +242,9 @@ export class MainPage{
             pom.style.color = "yellowgreen"
             leftDiv.appendChild(pom);
             
-            pom = document.createElement("img");
-            pom.src = "./resources/decor.png";
-            leftDiv.appendChild(pom);
+            let pom1 = document.createElement("img");
+            pom1.src = "./resources/decor.png";
+            leftDiv.appendChild(pom1);
 
 
 
@@ -300,10 +307,10 @@ export class MainPage{
         pom.style.fontSize = "32px"
         container.appendChild(pom);
 
-        pom = document.createElement("img");
-        pom.src = "./resources/decor.png";
-        pom.style.width="230px"
-        container.appendChild(pom);
+        let pom1 = document.createElement("img");
+        pom1.src = "./resources/decor.png";
+        pom1.style.width="230px"
+        container.appendChild(pom1);
 
         let centarModal = document.createElement("div");
         centarModal.className = "centarModalDiv"
@@ -389,7 +396,7 @@ export class MainPage{
         this.modal.style.display = "none";
         parent.innerHTML = "";
         //setTimeout((   this.createAllTask()),5500)
-        setTimeout(()=>{this.createAllTask()}, 500);
+        setTimeout(()=>{this.createAllTask(null)}, 500);
     }
 
   

@@ -4,7 +4,12 @@ import {fromEvent, zip, interval} from 'rxjs';
 import { switchMap,filter, mergeMap, map, withLatestFrom, take } from 'rxjs/operators';
 import {WorkServices} from '../../Services/workServices';
 export class MyTask{
-
+    router: RouterComponent;
+    tasks: TaskServices;
+    works: WorkServices;
+    left: HTMLDivElement;
+    right: HTMLDivElement;
+    center: HTMLDivElement;
     constructor(){
         this.router = new RouterComponent();
         this.tasks = new TaskServices();
@@ -53,7 +58,7 @@ export class MyTask{
         const inp = document.getElementById("inputTask3")
         return fromEvent(inp,"input")
         .pipe(
-          map(input=>input.target.value));
+          map(input=>(<HTMLTextAreaElement>input.target).value));
     }
 
 
@@ -198,9 +203,9 @@ export class MyTask{
                 pom.style.color = "yellowgreen"
                 leftDiv.appendChild(pom);
                 
-                pom = document.createElement("img");
-                pom.src = "./resources/decor.png";
-                leftDiv.appendChild(pom);
+                let pom1 = document.createElement("img");
+                pom1.src = "./resources/decor.png";
+                leftDiv.appendChild(pom1);
 
 
 
@@ -269,6 +274,10 @@ export class MyTask{
     {
         let index =  pos.parentNode.parentNode.value;
         let parent  = pos.parentNode.parentNode.parentNode;
+        pos.parentNode.parentNode.style.border = "none"
+        pos.parentNode.parentNode.style.width = 0;
+        pos.parentNode.parentNode.style.height = 0;
+        pos.parentNode.parentNode.innerHTML = ""
 
 
         let task = {
@@ -285,10 +294,7 @@ export class MyTask{
         }
 
         this.tasks.taskDone(task)
-        parent.childNodes[index].style.height = 0;
-        parent.childNodes[index].style.width = 0;
-        parent.childNodes[index].style.border = "none"  
-         parent.childNodes[index].innerHTML = ""     
+    
            
 
         //alert(el);

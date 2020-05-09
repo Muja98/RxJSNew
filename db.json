@@ -13,25 +13,13 @@
       "phone": "018-610-140"
     },
     {
-      "jmbg": "10053",
-      "title": "Čoban",
-      "taskid": "3",
-      "description": "Potreban čoban za čuvanje ovaca na planini,smeštaj i hrana obezbeđeni",
-      "completed": false,
-      "WorkerJMBG": 0,
-      "dateOpen": "10.4.2020",
-      "dateClosed": "10.6.2020",
-      "phone": "064-233-1233",
-      "id": 3
-    },
-    {
       "id": 4,
       "jmbg": "10053",
       "title": "Čoban",
       "taskid": "3",
       "description": "Potreban čoban za čuvanje ovaca na planini,smeštaj i hrana obezbeđeni",
       "completed": true,
-      "WorkerJMBG": "1005",
+      "WorkerJMBG": 0,
       "dateOpen": "10.4.2020",
       "dateClosed": "10.6.2020",
       "phone": "064-233-1233"
@@ -73,6 +61,15 @@
       "dateOfBirth": "10.05.1998",
       "JMBG": "1005",
       "taskID": null
+    },
+    {
+      "name": "Pera",
+      "surname": "Kvrgic",
+      "phone": "1",
+      "dateOfBirth": "1",
+      "JMBG": "12345",
+      "taskID": null,
+      "id": 6
     }
   ],
   "WorkType": [

@@ -4,6 +4,12 @@ import {fromEvent, interval,from,merge} from 'rxjs';
 import { switchMap,filter, mergeMap, map, withLatestFrom, take } from 'rxjs/operators';
 
 export class TaskPage{
+    brojac: Number;
+    tasks: TaskServices;
+    left: HTMLDivElement;
+    right: HTMLDivElement;
+    center: HTMLDivElement;
+    arrayTask: Array<Object>;
     constructor(){
         this.tasks = new TaskServices();
         this.left = null;
@@ -99,7 +105,7 @@ export class TaskPage{
         let nizOpcija = ["Radnik","Sadnja","Čuvanje Stoke","Košenje","Rad u plasteniku","Okopavanje", "Mehanizacija"]
         nizOpcija.map((el,i)=>{
             let opt = document.createElement("option");
-            opt.value = i+1;
+            opt.value = (i+1).toString();
             opt.text = el;
             select.options.add(opt);
         })
@@ -241,7 +247,7 @@ export class TaskPage{
         const inp = document.getElementById("inputTask2")
         return fromEvent(inp,"input")
         .pipe(
-          map(input=>input.target.value));
+          map(input=>(<HTMLTextAreaElement>input.target).value));
     }
 
 
@@ -294,7 +300,7 @@ export class TaskPage{
     createTasks(allTasks, parent, left ,right)
     {
        
-        this.brojac++;
+
         // if(this.brojac===3)
         // {
         //     this.brojac=0
@@ -367,9 +373,9 @@ export class TaskPage{
             pom.style.color = "yellowgreen"
             leftDiv.appendChild(pom);
             
-            pom = document.createElement("img");
-            pom.src = "./resources/decor.png";
-            leftDiv.appendChild(pom);
+            let pom1 = document.createElement("img");
+            pom1.src = "./resources/decor.png";
+            leftDiv.appendChild(pom1);
     
     
     
