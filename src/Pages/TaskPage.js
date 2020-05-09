@@ -1,6 +1,6 @@
 import {RouterComponent} from '../../Router/RouterComponent'
 import {TaskServices} from '../../Services/taskService';
-import {fromEvent, interval} from 'rxjs';
+import {fromEvent, interval,from,merge} from 'rxjs';
 import { switchMap,filter, mergeMap, map, withLatestFrom, take } from 'rxjs/operators';
 
 export class TaskPage{
@@ -9,6 +9,8 @@ export class TaskPage{
         this.left = null;
         this.right = null;
         this.center = null;
+        this.arrayTask = new Array();
+        this.brojac = 0;
     }   
 
     TaskContainer(parent){
@@ -188,8 +190,25 @@ export class TaskPage{
         let desni = document.createElement("div");
         desni.className = "TaskContainerRightBottomRight"
         botom.appendChild(desni);
-        this.left = levi;
-        this.right = desni;
+
+        this.createTekst(levi,desni)
+        let lf = document.createElement("div");
+        lf.style.width = "100%";
+        lf.style.height = "100%"
+
+        levi.appendChild(lf);
+
+        let rh = document.createElement("div");
+        rh.style.width = "100%";
+        rh.style.height = "100%"
+
+        desni.appendChild(rh);
+
+        this.left = lf;
+        this.right = rh
+
+
+     
     }
 
     createSearchBar(parent)
@@ -240,139 +259,165 @@ export class TaskPage{
 
     getAllTaskJMBG(jmbg)
     {
-        this.tasks.getAllTaskByJMBG(jmbg).subscribe(
+
+        this.left.innerHTML =""
+        this.right.innerHTML = ""
+        merge(
+            this.tasks.getAllTaskByJMBGET(jmbg),
+            this.tasks.getAllTaskByJMBGNET(jmbg)
+        ).subscribe(
             allTasks => this.createTasks(allTasks,this.center,this.left,this.right)
         )
+        // this.tasks.getAllTaskByJMBG(jmbg).subscribe(
+        //     allTasks => this.createTasks(allTasks,this.center,this.left,this.right)
+        // )
     }
 
-    createTasks(allTasks, parent, left ,right)
+    createTekst(levi,desni)
     {
-       //parent.innerHTML = ""
-        left.innerHTML = ""
-        right.innerHTML = ""
-
         let taskItem = document.createElement("div");
         taskItem.className = "taskItemError";
         taskItem.innerText = "Nezavršeni"
         taskItem.style.marginLeft = "50px"
         taskItem.style.color = "#dc3545"
-        left.appendChild(taskItem);
+        levi.appendChild(taskItem);
 
         taskItem = document.createElement("div");
         taskItem.className = "taskItemError";
         taskItem.innerText = "Završeni"
         taskItem.style.marginLeft = "50px"
         taskItem.style.color = "#28a745"
-        right.appendChild(taskItem);
-     
-        if(allTasks.length===0)
-        {
-            taskItem = document.createElement("div");
-            taskItem.className = "taskItemError";
+        taskItem.style.height = "120px"
+        desni.appendChild(taskItem);
+    }
+
+    createTasks(allTasks, parent, left ,right)
+    {
+       
+        this.brojac++;
+        // if(this.brojac===3)
+        // {
+        //     this.brojac=0
+        //   //  parent.innerHTML = ""
+        //      left.innerHTML = ""
+        //      right.innerHTML = ""
+
             
-            taskItem.style.marginLeft = "400px"
-            taskItem.innerText = "Ne postoje rezultati za taj JMBG!"
-            left.appendChild(taskItem);
-            return;
-        }
+        // }
+       
+     
+        // if(allTasks.length===0)
+        // {
+        //     taskItem = document.createElement("div");
+        //     taskItem.className = "taskItemError";
+            
+        //     taskItem.style.marginLeft = "400px"
+        //     taskItem.innerText = "Ne postoje rezultati za taj JMBG!"
+        //     left.appendChild(taskItem);
+        //     return;
+        // }
 
-        let leftCounter = -1;
-        let rightCounter = -1;
-        allTasks.map((el,i)=>{
+        this.createTask(allTasks,left,right)
+    }
 
-                let taskItem = document.createElement("div");
-                taskItem.className = "taskItem";
-                taskItem.style.width = "600px"
-                if(el.completed)
-                {   
-                    rightCounter++;
-                    taskItem.value = rightCounter;
-                    right.appendChild(taskItem);
-             
-                }
+    createTask(elp,left,right){
+        elp.map((el)=>{
+            let taskItem = document.createElement("div");
+            taskItem.className = "taskItem";
+            taskItem.style.width = "600px"
+            if(el.completed)
+            {   
+    
+                right.appendChild(taskItem);
+         
+            }
+          
+            else
+            {
+    
+                left.appendChild(taskItem);
               
+            }
+    
+            let leftDiv = document.createElement("div");
+            leftDiv.className = "leftDiv"
+            taskItem.appendChild(leftDiv);
+    
+            let x = document.createElement("div");
+            x.innerHTML = "<i class=\"fa fa-times-circle fa-2x\"></i>"
+            x.style.position = "absolute";
+            x.style.marginLeft = "570px"
+            x.style.cursor = "pointer"
+            x.onclick =(ev)=>{
+                if(el.completed)
+                {
+                    this.delete(ev.currentTarget,el.id)
+                }
                 else
                 {
-                    leftCounter++;
-                    taskItem.value = leftCounter;
-                    left.appendChild(taskItem);
-                  
+                    this.delete(ev.currentTarget,el.id)
                 }
-
-                let leftDiv = document.createElement("div");
-                leftDiv.className = "leftDiv"
-                taskItem.appendChild(leftDiv);
-
-                let x = document.createElement("div");
-                x.innerHTML = "<i class=\"fa fa-times-circle fa-2x\"></i>"
-                x.style.position = "absolute";
-                x.style.marginLeft = "570px"
-                x.style.cursor = "pointer"
-                x.onclick =(ev)=>{
-                    if(el.completed)
-                    {
-                        this.delete(ev.currentTarget,el.id)
-                    }
-                    else
-                    {
-                        this.delete(ev.currentTarget,el.id)
-                    }
-                  
-                }
-                leftDiv.appendChild(x);
-
-                let pom = document.createElement("h1");
-                pom.innerText = el.title;
-                pom.style.fontFamily = "Arial, Helvetica"
-                pom.style.color = "yellowgreen"
-                leftDiv.appendChild(pom);
-                
-                pom = document.createElement("img");
-                pom.src = "./resources/decor.png";
-                leftDiv.appendChild(pom);
-
-
-
-                pom = document.createElement("p");
-                pom.innerText = el.description;
-                pom.style.fontFamily = "Arial, Helvetica";
-                leftDiv.appendChild(pom);
-
-                pom = document.createElement("h5");
-                pom.innerText ="Datum pocetka: "+el.dateOpen;
-                pom.style.fontFamily = "Arial, Helvetica";
-                leftDiv.appendChild(pom);
-
-                pom = document.createElement("h5");
-                pom.innerText ="Datum ocekivanog zavrsetka: "+el.dateClosed;
-                pom.style.fontFamily = "Arial, Helvetica";
-                leftDiv.appendChild(pom);
-
-                pom = document.createElement("h5");
-                pom.innerText ="Kontakt telefon: "+el.phone;
-                pom.style.fontFamily = "Arial, Helvetica";
-                leftDiv.appendChild(pom);
-
-                let rightDiv = document.createElement("div")
-                rightDiv.className = "rightDiv"
-                taskItem.appendChild(rightDiv);
-
-                let pic = document.createElement("img");
-                pic.src = `./resources/icons/${el.taskid}.png`;
-                pic.style.width = "100px";
-                pic.style.height = "100px"
-                rightDiv.appendChild(pic);
+              
+            }
+            leftDiv.appendChild(x);
+    
+            let pom = document.createElement("h1");
+            pom.innerText = el.title;
+            pom.style.fontFamily = "Arial, Helvetica"
+            pom.style.color = "yellowgreen"
+            leftDiv.appendChild(pom);
+            
+            pom = document.createElement("img");
+            pom.src = "./resources/decor.png";
+            leftDiv.appendChild(pom);
+    
+    
+    
+            pom = document.createElement("p");
+            pom.innerText = el.description;
+            pom.style.fontFamily = "Arial, Helvetica";
+            leftDiv.appendChild(pom);
+    
+            pom = document.createElement("h5");
+            pom.innerText ="Datum pocetka: "+el.dateOpen;
+            pom.style.fontFamily = "Arial, Helvetica";
+            leftDiv.appendChild(pom);
+    
+            pom = document.createElement("h5");
+            pom.innerText ="Datum ocekivanog zavrsetka: "+el.dateClosed;
+            pom.style.fontFamily = "Arial, Helvetica";
+            leftDiv.appendChild(pom);
+    
+            pom = document.createElement("h5");
+            pom.innerText ="Kontakt telefon: "+el.phone;
+            pom.style.fontFamily = "Arial, Helvetica";
+            leftDiv.appendChild(pom);
+    
+            let rightDiv = document.createElement("div")
+            rightDiv.className = "rightDiv"
+            taskItem.appendChild(rightDiv);
+    
+            let pic = document.createElement("img");
+            pic.src = `./resources/icons/${el.taskid}.png`;
+            pic.style.width = "100px";
+            pic.style.height = "100px"
+            rightDiv.appendChild(pic);
         })
+       
     }
 
     delete(pos,id)
     {
         let index =  pos.parentNode.parentNode.value;
-        let parent  = pos.parentNode.parentNode.parentNode;
-        this.tasks.removeTask(id)
+        pos.parentNode.parentNode.style.border = "none"
+        pos.parentNode.parentNode.innerHTML = ""
+
+        // let parent  = pos.parentNode.parentNode.parentNode;
+        
+         this.tasks.removeTask(id)
       
-            parent.childNodes[index+1].style.border = "none"  
-            parent.childNodes[index+1].innerHTML = ""
+        //     parent.childNodes[index+1].style.border = "none"  
+        //     parent.childNodes[index+1].innerHTML = ""
             
 
         //alert(el);

@@ -1,10 +1,10 @@
 import {RouterComponent} from '../../Router/RouterComponent'
 import {TaskServices} from '../../Services/taskService';
 import {WorkServices} from '../../Services/workServices';
-import {fromEvent, interval} from 'rxjs';
+import {fromEvent, interval,from, Observable} from 'rxjs';
 import {zip} from 'rxjs'
 import { isThrowStatement, textChangeRangeIsUnchanged } from 'typescript';
-import { switchMap,filter, mergeMap, map, withLatestFrom, take } from 'rxjs/operators';
+import { switchMap,filter, mergeMap, map, withLatestFrom, take, takeUntil } from 'rxjs/operators';
 export class MainPage{
     constructor(){
         this.router = new RouterComponent();
@@ -13,6 +13,7 @@ export class MainPage{
         this.mainContainer = null;
         this.rightMenuContent = null;
         this.modal = null
+        this.arrayOfTypes = new Array();
     }   
 
     MainContainer(parent){
@@ -110,6 +111,7 @@ export class MainPage{
   
 
     createSearchByItem(allTypes){
+    
         let searchByItems = document.createElement("div");
         searchByItems.className = "leftMenuContent";
         this.mainContainer.appendChild(searchByItems);
@@ -125,23 +127,33 @@ export class MainPage{
         div.style.fontSize = "24px"
         searchByItems.appendChild(div);
 
-        allTypes.map(el=>{
-            div = document.createElement("div");
-            div.className = "leftMenuContentItem"
-            div.innerText = el.name
-            div.style.fontFamily = "Arial, Helvetica"
-            div.style.fontWeight = "500"
-            
-            div.onclick =()=>{
-                this.getItemClicked(el.id)
-            }
-            div.style.cursor = "pointer"
-            div.style.backgroundColor = "whitesmoke"
-            searchByItems.appendChild(div)
-
-            
+        allTypes.map((el)=>{
+            this.arrayOfTypes.push(el);
         })
+        
+        let obs$ = from(this.arrayOfTypes).pipe(
+            take(7)
+        ).subscribe(
+            data =>  setTimeout(()=>{this.createAllTypes(data,searchByItems)}, 500)
+           
+        );
 
+    }
+
+    createAllTypes(el,searchByItems)
+    {
+        let div = document.createElement("div");
+        div.className = "leftMenuContentItem"
+        div.innerText = el.name
+        div.style.fontFamily = "Arial, Helvetica"
+        div.style.fontWeight = "500"
+        
+        div.onclick =()=>{
+            this.getItemClicked(el.id)
+        }
+        div.style.cursor = "pointer"
+        div.style.backgroundColor = "whitesmoke"
+        searchByItems.appendChild(div)
     }
 
     getItemClicked(id)
@@ -156,6 +168,9 @@ export class MainPage{
     {
         parent.innerHTML = ""
         this.createSearchBar(parent);
+
+        let button = document.createElement("button");
+
         if(allTasks.length===0)
         {
             let taskItem = document.createElement("div");
@@ -169,9 +184,38 @@ export class MainPage{
             parent.appendChild(taskItem);
             return;
         }
-        allTasks.map((el)=>{
 
-            if(el.WorkerJMBG === 0)
+        this.arrayOfTypes = [];
+        allTasks.map((el)=>{
+            this.arrayOfTypes.push(el);
+        })
+
+        let length = this.arrayOfTypes.length;
+        let i =0;
+
+        let timer$ = new Observable(sub=>{
+                let intervalID = setInterval(()=>{
+                    sub.next(this.arrayOfTypes[i++])
+                },300)
+                return()=>{
+                    clearInterval(intervalID)
+                } 
+        })
+
+        let cancelTimer$ = fromEvent(button,'click');
+
+        timer$.pipe(
+            takeUntil(cancelTimer$)
+
+        ).subscribe(
+            value => i!==length+1?this.createItem(value,parent):button.click() 
+        )
+
+    }
+
+    createItem(el,parent)
+    {
+        if(el.WorkerJMBG === 0)
             {
             let taskItem = document.createElement("div");
             taskItem.className = "taskItem";
@@ -227,7 +271,6 @@ export class MainPage{
             pic.style.height = "100px"
             rightDiv.appendChild(pic);
         }
-        })
     }
 
     ShowModal(el,parent)

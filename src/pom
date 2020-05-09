@@ -1,0 +1,48 @@
+  allTypes.map((el)=>{
+            this.arrayOfTypes.push(el);
+        })
+         
+        let button = document.createElement("button");
+        button.style.height = "100px";
+        button.style.width = "100px";
+        button.innerText = "Munem"
+        this.mainContainer.appendChild(button);
+
+        let length = this.arrayOfTypes.length;
+       let i =0;
+        let timer$ = new Observable(sub=>{
+     
+            if(i<length)
+            {
+
+                let intervalID = setInterval(()=>{
+                    sub.next(this.arrayOfTypes[i++])
+                },2000)
+                return()=>{
+                    clearInterval(intervalID)
+                }
+            }
+            else
+            {
+                button.click();
+            }
+          
+        })
+       
+
+         let cancelTimer$ = fromEvent(button,'click');
+
+         timer$.pipe(
+             takeUntil(cancelTimer$)
+
+         ).subscribe(
+             value => i!==length+1?console.log(value):button.click() 
+         )
+
+
+        // let obs$ = from(this.arrayOfTypes).pipe(
+        //     take(3)
+        // ).subscribe(
+        //     pera =>  setTimeout(()=>{console.log(pera.name)}, 2000)
+           
+        // );

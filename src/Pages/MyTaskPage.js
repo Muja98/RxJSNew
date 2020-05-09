@@ -1,6 +1,6 @@
 import {RouterComponent} from '../../Router/RouterComponent'
 import {TaskServices} from '../../Services/taskService';
-import {fromEvent, interval} from 'rxjs';
+import {fromEvent, zip, interval} from 'rxjs';
 import { switchMap,filter, mergeMap, map, withLatestFrom, take } from 'rxjs/operators';
 import {WorkServices} from '../../Services/workServices';
 export class MyTask{
@@ -63,44 +63,120 @@ export class MyTask{
         fromEvent(searchButton,"click").pipe(
             withLatestFrom(
                 this.inputObservable()
-            ),
-            take(5)
+            )
         ).subscribe(itemForSearch=>this.getAllWorkerJmbgTask(itemForSearch[1]))
 
     }
 
     getAllWorkerJmbgTask(jmbg)
     {
-        this.tasks.getAllTaskByWorkerJMBG(jmbg).subscribe(
-            allTasks => this.createTasks(allTasks,this.center,this.left)
+       zip( this.tasks.getAllTaskByWorkerJMBG(jmbg),
+            this.works.getWorker(jmbg)
+            ).subscribe(
+            allTasks => this.createTasks(allTasks,this.center)
         )
     }
 
-    createTasks(allTasks, parent, left)
+    createTasks(allTasks, parent)
     {
-       //parent.innerHTML = ""
-        left.innerHTML = ""
+       
+        parent.innerHTML = ""
 
-        if(allTasks.length===0)
+        let left = document.createElement("div");
+        parent.appendChild(left);
+        left.className = "TaskContainerRightBottomRight";
+
+        let right = document.createElement("div");
+        parent.appendChild(right);
+        right.className = "TaskContainerRightBottomRight";
+
+        console.log(allTasks)
+        if(allTasks[1].length===0)
         {
             let taskItem = document.createElement("div");
             taskItem.className = "taskItemError";
-            taskItem.style.width = "600px"
-            taskItem.innerText = "Ne postoje rezultati za taj JMBG!"
+            taskItem.style.width = "500px"
+            taskItem.innerText = "Ne postoji Radnik sa taj JMBG!"
+            right.appendChild(taskItem);
+            return;
+        }
+        else
+        {
+            let div = document.createElement("div");
+            div.className = "TaskContainerLeft"
+            div.style.alignItems = "initial"
+            div.style.marginTop = "25px"
+            div.style.width = "500px"
+            right.appendChild(div);
+     
+    
+            let pomdiv = document.createElement("div");
+            pomdiv.className = "TaskContainerLeftContainer"
+            pomdiv.style.height = "70%"
+            div.appendChild(pomdiv)
+    
+            let topDiv = document.createElement("div");
+            topDiv.className = "TaskContainerLeftContainerTop"
+            pomdiv.appendChild(topDiv);
+    
+            let naslov = document.createElement("h1");
+            naslov.innerHTML =  "<span style=\"color:yellowgreen\">Informacije &nbsp;</span>o radniku";
+            naslov.style.fontFamily = "Arial, Helvetica"
+            topDiv.appendChild(naslov)
+    
+            let pic = document.createElement("img");
+            pic.src = "./resources/decor.png";
+            pic.style.width="230px"
+            topDiv.appendChild(pic);
+    
+            let bottomDiv = document.createElement("div");
+            bottomDiv.className = "TaskContainerLeftContainerBottom"
+            pomdiv.appendChild(bottomDiv);
+    
+            let niz = ["Ime: ","Prezime: ","Telefon: ", "Datum rođenja: "];
+            let niz2 =[allTasks[1][0].name,allTasks[1][0].surname,allTasks[1][0].phone,allTasks[1][0].dateOfBirth]
+            niz.map((el,i)=>{
+                div = document.createElement("div");
+                div.className = "TaskContainerLeftContainerBottomEllement"
+                bottomDiv.appendChild(div);
+    
+                let lbl = document.createElement("label");
+                lbl.innerText = el;
+                lbl.style.fontFamily = "Arial, Helvetica";
+                lbl.style.fontSize = "17px"
+                lbl.style.fontWeight = "500"
+                lbl.style.float = "left"
+                div.appendChild(lbl);
+    
+                let inp = document.createElement("input");
+                inp.type = "text";
+                inp.value = niz2[i]
+                inp.disabled = true;
+                inp.style.height = "35px"
+                inp.style.float = "right"
+                div.appendChild(inp)
+            })
+    
+        
+        }
+
+        if(allTasks[0].length===0)
+        {
+            let taskItem = document.createElement("div");
+            taskItem.className = "taskItemError";
+            taskItem.style.width = "500px"
+            taskItem.innerText = "Ne postoji task za tog Radnika!"
             left.appendChild(taskItem);
             return;
         }
-
-        let leftCounter = -1;
-        allTasks.map((el,i)=>{
-          
+        else
+        {
+        allTasks[0].map((el,i)=>{
+                console.log(el);
                 let taskItem = document.createElement("div");
                 taskItem.className = "taskItem";
                 taskItem.style.width = "600px"
                 taskItem.style.height = "280px"
-
-                leftCounter++;
-                taskItem.value = leftCounter;
                 left.appendChild(taskItem);
                 let leftDiv = document.createElement("div");
                 leftDiv.className = "leftDiv"
@@ -159,6 +235,7 @@ export class MyTask{
                 pic.style.marginBottom = "150px"
                 rightDiv.appendChild(pic);
         })
+     }
     }
 
     createTaskContainerRight(parent)
@@ -178,13 +255,14 @@ export class MyTask{
         this.center = botom;
 
         let levi = document.createElement("div")
-        levi.className = "TaskContainerRightBottomLeft"
-        levi.style.width = "100%"
-        levi.style.display = "flex"
-        levi.style.alignItems = "center"
-        levi.style.flexDirection = "column"
+        levi.className = "TaskContainerRightBottomRight"
         botom.appendChild(levi);
         this.left = levi;
+
+        let desni = document.createElement("div")
+        desni.className = "TaskContainerRightBottomRight"
+        botom.appendChild(desni);
+        this.right = desni
     }
 
     complete(pos,el)

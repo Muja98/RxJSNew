@@ -1,19 +1,7 @@
 {
   "Tasks": [
     {
-      "id": 10,
-      "jmbg": "11111",
-      "title": "Vrsa",
-      "taskid": "7",
-      "description": "Potreban vozac kombajna someke M84",
-      "completed": false,
-      "WorkerJMBG": "1005",
-      "dateOpen": "1.6.2020",
-      "dateClosed": "1.7.2020",
-      "phone": "064-88-75-504"
-    },
-    {
-      "id": 11,
+      "id": 2,
       "jmbg": "10051998",
       "title": "Oranje",
       "taskid": "7",
@@ -34,7 +22,19 @@
       "dateOpen": "10.4.2020",
       "dateClosed": "10.6.2020",
       "phone": "064-233-1233",
-      "id": 12
+      "id": 3
+    },
+    {
+      "id": 4,
+      "jmbg": "10053",
+      "title": "Čoban",
+      "taskid": "3",
+      "description": "Potreban čoban za čuvanje ovaca na planini,smeštaj i hrana obezbeđeni",
+      "completed": true,
+      "WorkerJMBG": "1005",
+      "dateOpen": "10.4.2020",
+      "dateClosed": "10.6.2020",
+      "phone": "064-233-1233"
     }
   ],
   "Worker": [
@@ -64,6 +64,15 @@
       "JMBG": "1000",
       "taskID": null,
       "id": 3
+    },
+    {
+      "id": 5,
+      "name": "Stefan",
+      "surname": "Stamenkovic",
+      "phone": "064-88-75-504",
+      "dateOfBirth": "10.05.1998",
+      "JMBG": "1005",
+      "taskID": null
     }
   ],
   "WorkType": [

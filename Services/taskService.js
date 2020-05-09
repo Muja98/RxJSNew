@@ -25,7 +25,7 @@ export class TaskServices{
     }
 
     getAllTasksByName(name){
-        const data$ = fromFetch(URL_TASK+`?title=${name}`).pipe(
+        const data$ = fromFetch(URL_TASK+`?title_like=${name}`).pipe(
             switchMap(response =>{
                 if(response.ok)
                 {
@@ -119,7 +119,32 @@ export class TaskServices{
                 }
             })
         )
-        
+      return data$;
+    }
+
+    getAllTaskByJMBGET(jmbg)
+    {
+        const data$ = fromFetch(URL_TASK+`?jmbg=${jmbg}&completed=${true}`).pipe(
+            switchMap(response =>{
+                if(response.ok)
+                {
+                    return response.json();
+                }
+            })
+        )
+      return data$;
+    }
+
+    getAllTaskByJMBGNET(jmbg)
+    {
+        const data$ = fromFetch(URL_TASK+`?jmbg=${jmbg}&completed=${false}`).pipe(
+            switchMap(response =>{
+                if(response.ok)
+                {
+                    return response.json();
+                }
+            })
+        )
       return data$;
     }
     taskDone(el)
