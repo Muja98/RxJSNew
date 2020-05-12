@@ -13,12 +13,24 @@
       "phone": "018-610-140"
     },
     {
+      "id": 5,
+      "jmbg": "10051998",
+      "title": "Oranje",
+      "taskid": "7",
+      "description": "Potrebno je izorati njivu da bi se pripremila za proletnju setvu",
+      "completed": true,
+      "WorkerJMBG": -1,
+      "dateOpen": "1,9.2020",
+      "dateClosed": "1.10.2020",
+      "phone": "018-610-140"
+    },
+    {
       "id": 4,
       "jmbg": "10053",
       "title": "Čoban",
       "taskid": "3",
       "description": "Potreban čoban za čuvanje ovaca na planini,smeštaj i hrana obezbeđeni",
-      "completed": true,
+      "completed": false,
       "WorkerJMBG": 0,
       "dateOpen": "10.4.2020",
       "dateClosed": "10.6.2020",

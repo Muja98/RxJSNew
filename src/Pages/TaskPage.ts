@@ -19,7 +19,7 @@ export class TaskPage{
         this.brojac = 0;
     }   
 
-    TaskContainer(parent){
+    TaskContainer(parent:HTMLDivElement){
         let div = document.createElement("div");
         div.className = "taskContainer"
         parent.appendChild(div);
@@ -28,7 +28,7 @@ export class TaskPage{
         this.createTaskContainerRight(div);
     }
 
-    createTaskContainerLeft(parent)
+    createTaskContainerLeft(parent:HTMLDivElement)
     {
         //this.left.innerHTML = "";
         let div = document.createElement("div");
@@ -174,7 +174,7 @@ export class TaskPage{
 
 
 
-    createTaskContainerRight(parent)
+    createTaskContainerRight(parent:HTMLDivElement)
     {
         let div = document.createElement("div");
         div.className = "TaskContainerRight"
@@ -217,7 +217,7 @@ export class TaskPage{
      
     }
 
-    createSearchBar(parent)
+    createSearchBar(parent:HTMLDivElement)
     {
         let div = document.createElement("div");
         parent.appendChild(div);
@@ -263,7 +263,7 @@ export class TaskPage{
 
     }
 
-    getAllTaskJMBG(jmbg)
+    getAllTaskJMBG(jmbg:String)
     {
 
         this.left.innerHTML =""

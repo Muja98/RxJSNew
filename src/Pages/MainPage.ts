@@ -23,7 +23,7 @@ export class MainPage{
         this.arrayOfTypes = new Array();
     }   
 
-    MainContainer(parent){
+    MainContainer(parent:HTMLDivElement){
 
         let div = document.createElement("div");
         parent.appendChild(div);
@@ -48,7 +48,7 @@ export class MainPage{
     }
 
   
-    createSearchBar(parent)
+    createSearchBar(parent:HTMLDivElement)
     {
         let div = document.createElement("div");
         parent.appendChild(div);
@@ -92,7 +92,7 @@ export class MainPage{
 
     }
 
-    createAllTask(itemForSearch){
+    createAllTask(itemForSearch:string){
         if(itemForSearch===null || itemForSearch ===undefined)
         {
 
@@ -108,7 +108,7 @@ export class MainPage{
         }
     }
 
-    createModal(parent){
+    createModal(parent:HTMLElement){
         let div = document.createElement("div");
         div.className = "modal"
         this.modal = div;
@@ -117,7 +117,7 @@ export class MainPage{
 
   
 
-    createSearchByItem(allTypes){
+    createSearchByItem(allTypes:Array<string>){
     
         let searchByItems = document.createElement("div");
         searchByItems.className = "leftMenuContent";
@@ -147,7 +147,7 @@ export class MainPage{
 
     }
 
-    createAllTypes(el,searchByItems)
+    createAllTypes(el,searchByItems:HTMLDivElement)
     {
         let div = document.createElement("div");
         div.className = "leftMenuContentItem"
@@ -163,7 +163,7 @@ export class MainPage{
         searchByItems.appendChild(div)
     }
 
-    getItemClicked(id)
+    getItemClicked(id:BigInteger)
     {
         this.rightMenuContent.innerHTML = "";
         this.tasks.getAllTaskById(id).subscribe(
@@ -171,7 +171,7 @@ export class MainPage{
             )
     }
 
-    createTasks(allTasks, parent)
+    createTasks(allTasks, parent:HTMLDivElement)
     {
         parent.innerHTML = ""
         this.createSearchBar(parent);
@@ -220,7 +220,7 @@ export class MainPage{
 
     }
 
-    createItem(el,parent)
+    createItem(el,parent:HTMLDivElement)
     {
         if(el.WorkerJMBG === 0)
             {
@@ -280,7 +280,7 @@ export class MainPage{
         }
     }
 
-    ShowModal(el,parent)
+    ShowModal(el,parent:HTMLDivElement)
     {
         this.modal.innerHTML = ""
         let div = document.createElement("div");
@@ -368,7 +368,7 @@ export class MainPage{
         this.modal.style.display = "block"
     }
 
-    handleKonkurisiClick(button,el,parent){
+    handleKonkurisiClick(button,el,parent:HTMLDivElement){
         let jmbg = button.parentNode.parentNode.childNodes[1].childNodes[1].value;
 
         this.workers.getWorkerByPromises(jmbg).then(data=>
@@ -378,7 +378,7 @@ export class MainPage{
         button.parentNode.parentNode.childNodes[1].childNodes[1].value = "";
     }
 
-    konkurisi(jmbg,el,parent)
+    konkurisi(jmbg,el,parent:HTMLDivElement)
     {
         let Task = {
             id:  el.id,

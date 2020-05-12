@@ -19,7 +19,7 @@ export class MyTask{
         this.center = null;
     }   
 
-    MyTaskContainer(parent){
+    MyTaskContainer(parent:HTMLDivElement){
         let div = document.createElement("div");
         div.className = "taskContainer"
         parent.appendChild(div);
@@ -28,7 +28,7 @@ export class MyTask{
         this.createTaskContainerRight(div);
     }
 
-    createSearchBar(parent)
+    createSearchBar(parent:HTMLDivElement)
     {
         let div = document.createElement("div");
         parent.appendChild(div);
@@ -73,7 +73,7 @@ export class MyTask{
 
     }
 
-    getAllWorkerJmbgTask(jmbg)
+    getAllWorkerJmbgTask(jmbg:String)
     {
        zip( this.tasks.getAllTaskByWorkerJMBG(jmbg),
             this.works.getWorker(jmbg)
@@ -82,7 +82,7 @@ export class MyTask{
         )
     }
 
-    createTasks(allTasks, parent)
+    createTasks(allTasks, parent:HTMLDivElement)
     {
        
         parent.innerHTML = ""
@@ -243,7 +243,7 @@ export class MyTask{
      }
     }
 
-    createTaskContainerRight(parent)
+    createTaskContainerRight(parent:HTMLDivElement)
     {
         let div = document.createElement("div");
         div.className = "TaskContainerRight"
@@ -300,7 +300,7 @@ export class MyTask{
         //alert(el);
     }
 
-    createTaskContainerLeft(parent)
+    createTaskContainerLeft(parent:HTMLDivElement)
     {
         let div = document.createElement("div");
         div.className = "TaskContainerLeft"
